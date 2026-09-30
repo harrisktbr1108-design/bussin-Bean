@@ -98,7 +98,7 @@ export const AdminLayout: React.FC<Props> = ({
         }
       >
         <div style={brand}>
-          <img src="/images/bussin-bean%20logo.jfif" alt="Bussin Bean logo" style={brandMark} />
+          <img src="/images/bussin-bean%20logo.jpeg" alt="Bussin Bean logo" style={brandMark} />
           <div>
             <strong>BUSSIN BEAN</strong>
             <span>Operations portal</span>

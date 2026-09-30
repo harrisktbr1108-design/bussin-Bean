@@ -32,7 +32,7 @@ export const About: React.FC = () => (
           borderRadius: 14, padding: '12px 20px',
         }}>
           <div style={{ fontFamily: "'Playfair Display',serif", fontSize: 14, fontWeight: 700, letterSpacing: '0.12em', color: '#FAF6F0' }}>BUSSIN BEAN</div>
-          <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.16em', color: '#C47E38', marginTop: 3, textTransform: 'uppercase' }}>EST. 2016 · CRAFT ROASTERY</div>
+          <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.16em', color: '#C47E38', marginTop: 3, textTransform: 'uppercase' }}>EST. 2026 · CRAFT ROASTERY</div>
         </div>
       </div>
 

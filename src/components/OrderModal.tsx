@@ -4,6 +4,7 @@ import { CustomerDiscount, CustomerOrder } from '../adminTypes';
 import { formatCountdown, getStoreHoursState } from '../operatingHours';
 import { X, ShoppingBag, Trash2, CheckCircle2, ArrowRight, Truck } from 'lucide-react';
 import { apiRequest } from '../api';
+import { DEFAULT_DELIVERY_FEE, calculateOrderTotals } from '../orderPricing';
 
 export interface CartItem { item: MenuItem; quantity: number; addOns: CoffeeAddOn[]; key: string; }
 
@@ -34,7 +35,9 @@ export const OrderModal: React.FC<Props> = ({ isOpen, onClose, cart, onUpdateQua
   const itemDiscount = cart.reduce((total, cartItem) => total + cartItem.item.price * cartItem.quantity * ((cartItem.item.discountPercent || 0) / 100), 0);
   const customerDiscount = serverDiscount || discounts.find(discount => discount.active && discount.customerKey === customerKey.trim().toLowerCase()) || null;
   const customerDiscountAmount = (subtotal - itemDiscount) * ((customerDiscount?.percent || 0) / 100);
-  const grandTotal = Math.max(0, Math.round(subtotal - itemDiscount - customerDiscountAmount));
+  const deliveryFee = DEFAULT_DELIVERY_FEE;
+  const totals = calculateOrderTotals({ subtotal, itemDiscount, customerDiscountAmount, deliveryFee });
+  const grandTotal = totals.grandTotal;
 
   useEffect(() => {
     const key = customerKey.trim();
@@ -165,7 +168,7 @@ export const OrderModal: React.FC<Props> = ({ isOpen, onClose, cart, onUpdateQua
                   <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
                     <Truck size={13} color="#2e7d32" /> Express Delivery
                   </span>
-                  <span style={{ color: '#2e7d32', fontWeight: 800, letterSpacing: '0.05em' }}>FREE</span>
+                  <span style={{ color: '#2e7d32', fontWeight: 800, letterSpacing: '0.05em' }}>Rs. {deliveryFee}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 16, fontWeight: 700, color: '#120703', paddingTop: 8, borderTop: '1px solid rgba(18,7,3,0.08)' }}>
                   <span>Grand Total</span>

@@ -4,7 +4,141 @@ import { AdminMenuItemModal } from './AdminMenuItemModal';
 import { Edit3, Plus, Trash2 } from 'lucide-react';
 
 interface Props { items: MenuItem[]; onChange: (items: MenuItem[]) => void; }
-export const AdminMenuManager: React.FC<Props> = ({ items, onChange }) => { const [editing, setEditing] = useState<MenuItem | undefined>(); const [modal, setModal] = useState(false); const save = (item: MenuItem) => { onChange(items.some(existing => existing.id === item.id) ? items.map(existing => existing.id === item.id ? item : existing) : [...items, item]); setModal(false); setEditing(undefined); }; return <div><div style={toolbar}><div><p style={eyebrow}>CATALOG CONTROL</p><h2 style={heading}>Menu & inventory</h2></div><button onClick={() => { setEditing(undefined); setModal(true); }} style={primary}><Plus size={15} /> ADD ITEM</button></div><div style={table}>{items.map(item => <div key={item.id} style={row}><img src={item.image} alt="" style={image} /><div style={{ flex: 1 }}><strong style={{ fontSize: 13 }}>{item.name}</strong><span style={small}>{item.category} · {item.currency} {item.price}{item.discountPercent ? ` · ${item.discountPercent}% off` : ''}</span></div><button onClick={() => onChange(items.map(existing => existing.id === item.id ? { ...existing, isInStock: existing.isInStock === false } : existing))} style={{ ...stock, color: item.isInStock === false ? '#963E2E' : '#47704E' }}>{item.isInStock === false ? 'OUT OF STOCK' : 'IN STOCK'}</button><button onClick={() => { setEditing(item); setModal(true); }} style={iconButton}><Edit3 size={15} /></button><button onClick={() => onChange(items.filter(existing => existing.id !== item.id))} style={{ ...iconButton, color: '#963E2E' }}><Trash2 size={15} /></button></div>)}</div>{modal && <AdminMenuItemModal item={editing} onClose={() => setModal(false)} onSave={save} />}</div>; };
+export const AdminMenuManager: React.FC<Props> = ({ items, onChange }) => {
+  const [editing, setEditing] = useState<MenuItem | undefined>();
+  const [modal, setModal] = useState(false);
+
+  const save = (item: MenuItem) => {
+    onChange(items.some(existing => existing.id === item.id)
+      ? items.map(existing => existing.id === item.id ? item : existing)
+      : [...items, item]);
+    setModal(false);
+    setEditing(undefined);
+  };
+
+  return (
+    <>
+      <style>{`
+        .admin-menu-manager {
+          width: 100%;
+        }
+
+        .admin-menu-toolbar {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 18px;
+        }
+
+        .admin-menu-table {
+          background: #FFF9F2;
+          border: 1px solid #E4D7C7;
+          border-radius: 16px;
+          overflow: hidden;
+        }
+
+        .admin-menu-row {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 12px;
+          border-bottom: 1px solid #EEE3D7;
+        }
+
+        .admin-menu-row:last-child {
+          border-bottom: none;
+        }
+
+        .admin-menu-row .admin-menu-meta {
+          flex: 1;
+          min-width: 0;
+        }
+
+        .admin-menu-row .admin-menu-actions {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          flex-shrink: 0;
+        }
+
+        @media (max-width: 640px) {
+          .admin-menu-toolbar {
+            flex-direction: column;
+            align-items: stretch;
+          }
+
+          .admin-menu-toolbar button {
+            width: 100%;
+            justify-content: center;
+          }
+
+          .admin-menu-row {
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 10px;
+          }
+
+          .admin-menu-row .admin-menu-meta {
+            flex-basis: calc(100% - 60px);
+          }
+
+          .admin-menu-row .admin-menu-stock {
+            order: 2;
+            width: 100%;
+            text-align: left;
+            padding-top: 4px;
+          }
+
+          .admin-menu-row .admin-menu-actions {
+            margin-left: auto;
+          }
+        }
+      `}</style>
+
+      <div className="admin-menu-manager">
+        <div className="admin-menu-toolbar" style={toolbar}>
+          <div>
+            <p style={eyebrow}>CATALOG CONTROL</p>
+            <h2 style={heading}>Menu & inventory</h2>
+          </div>
+          <button onClick={() => { setEditing(undefined); setModal(true); }} style={primary}>
+            <Plus size={15} /> ADD ITEM
+          </button>
+        </div>
+
+        <div className="admin-menu-table" style={table}>
+          {items.map(item => (
+            <div key={item.id} className="admin-menu-row" style={row}>
+              <img src={item.image} alt="" style={image} />
+              <div className="admin-menu-meta" style={{ flex: 1 }}>
+                <strong style={{ fontSize: 13 }}>{item.name}</strong>
+                <span style={small}>{item.category} · {item.currency} {item.price}{item.discountPercent ? ` · ${item.discountPercent}% off` : ''}</span>
+              </div>
+              <button
+                className="admin-menu-stock"
+                onClick={() => onChange(items.map(existing => existing.id === item.id ? { ...existing, isInStock: existing.isInStock === false } : existing))}
+                style={{ ...stock, color: item.isInStock === false ? '#963E2E' : '#47704E' }}
+              >
+                {item.isInStock === false ? 'OUT OF STOCK' : 'IN STOCK'}
+              </button>
+              <div className="admin-menu-actions">
+                <button onClick={() => { setEditing(item); setModal(true); }} style={iconButton}>
+                  <Edit3 size={15} />
+                </button>
+                <button onClick={() => onChange(items.filter(existing => existing.id !== item.id))} style={{ ...iconButton, color: '#963E2E' }}>
+                  <Trash2 size={15} />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {modal && <AdminMenuItemModal item={editing} onClose={() => setModal(false)} onSave={save} />}
+      </div>
+    </>
+  );
+};
 const toolbar: React.CSSProperties = { display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, marginBottom: 18 };
 const eyebrow: React.CSSProperties = { color: '#B67538', fontSize: 10, fontWeight: 800, letterSpacing: '.14em', margin: 0 };
 const heading: React.CSSProperties = { fontFamily: "'Playfair Display',serif", fontSize: 28, margin: '7px 0 0' };

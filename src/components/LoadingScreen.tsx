@@ -26,7 +26,7 @@ export const LoadingScreen: React.FC<Props> = ({ progress, isReady }) => {
           width: 84, height: 84,
           margin: '0 auto 24px',
         }}>
-          <img src="/images/bussin-bean%20logo.jfif" alt="Bussin Bean logo" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%', clipPath: 'circle(50%)' }} />
+          <img src="/images/bussin-bean%20logo.jpeg" alt="Bussin Bean logo" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%', clipPath: 'circle(50%)' }} />
         </div>
 
         {/* Brand */}

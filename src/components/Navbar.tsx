@@ -44,7 +44,7 @@ export const Navbar: React.FC<NavbarProps> = ({ items, cartCount, onOpenCart, on
 
           {/* Logo */}
           <a href="#hero" className="storefront-brand" style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none', justifySelf: 'start' }}>
-            <img src="/images/bussin-bean%20logo.jfif" alt="Bussin Bean logo" style={{ width: 68, height: 68, objectFit: 'cover', borderRadius: '50%', clipPath: 'circle(50%)', flexShrink: 0 }} />
+            <img src="/images/bussin-bean%20logo.jpeg" alt="Bussin Bean logo" style={{ width: 68, height: 68, objectFit: 'cover', borderRadius: '50%', clipPath: 'circle(50%)', flexShrink: 0 }} />
             <div className="storefront-brand-copy">
               <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 21, fontWeight: 800, letterSpacing: '0.12em', color: '#C47E38', lineHeight: 1 }}>BUSSIN BEAN</div>
               <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.18em', color: '#5C3318', textTransform: 'uppercase', marginTop: 3 }}>CRAFT COFFEE ROASTERS</div>

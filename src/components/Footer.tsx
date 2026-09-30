@@ -9,7 +9,7 @@ export const Footer: React.FC = () => (
         {/* Brand Column */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <img src="/images/bussin-bean%20logo.jfif" alt="Bussin Bean logo" style={{ width: 72, height: 72, objectFit: 'cover', borderRadius: '50%', clipPath: 'circle(50%)', flexShrink: 0 }} />
+            <img src="/images/bussin-bean%20logo.jpeg" alt="Bussin Bean logo" style={{ width: 72, height: 72, objectFit: 'cover', borderRadius: '50%', clipPath: 'circle(50%)', flexShrink: 0 }} />
             <div>
               <div style={{ fontFamily: "'Playfair Display',serif", fontSize: 20, fontWeight: 800, letterSpacing: '0.12em', color: '#C47E38' }}>BUSSIN BEAN</div>
               <div style={{ fontSize: 8, fontWeight: 700, letterSpacing: '0.18em', color: 'rgba(250,246,240,0.60)', marginTop: 2, textTransform: 'uppercase' }}>CRAFT COFFEE ROASTERS</div>
